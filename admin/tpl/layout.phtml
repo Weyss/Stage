@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - <?= $title ?></title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="../js/tinyMCE/tinymce.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1><a href="index.php?controller=dashboard&task=show">DashBoard</a></h1>
+        <ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Artiste</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="index.php?controller=artist&task=show">Liste des artistes</a>
+                    <a class="dropdown-item" href="index.php?controller=artist&task=add" data-toggle="modal" data-target="#addartist">Ajouter un artiste</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sons</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="index.php?controller=song&task=show">Liste des sons</a>
+                    <a class="dropdown-item" href="index.php?controller=song&task=add" data-toggle="modal" data-target="#addsong">Ajouter un son</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Evenement</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="index.php?controller=event&task=show">Liste des events</a>
+                    <a class="dropdown-item" href="index.php?controller=event&task=add" data-toggle="modal" data-target="#addevent">Ajouter un event</a>
+                </div>
+            </li>
+            <a class="nav-link" href="../index.php?controller=acceuil&task=show">Retour au site</a>
+            <a class="nav-link" href="index.php?controller=logout&task=deconnexion">Déconnexion</a>
+        </ul>
+    </div>
+
+    <?php require('tpl/' . $view . '.phtml') ?>
+
+    <!-- Modal de Suppression -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- En cas d'erreur -->
+                <div id="erreur" class="display">
+                    <h5 class="modal-title alert alert-danger text-center"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button></h5>
+                </div>
+                <!-- En cas de succès -->
+                <div id="success" class="display">
+                    <h5 class="modal-title alert alert-success text-center"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button></h5>
+                </div>
+                <div class="contact modal-header">
+                    <h5 class="modal-title">Supprimer cet élément ?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="contact modal-body">
+                    <p>Êtes-vous vraiment sûr de vouloir supprimer cet élément ?</p>
+                </div>
+                <div class="contact modal-footer">
+                    <form action="#" id="formdelete" method="POST">
+                        <input type="hidden" name="id" value="" id="deleteId">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Ajout Artist -->
+    <div class="modal fade" id="addartist" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <!-- En cas de succès, le message de remerciment -->
+                <div id="merci" class="display">
+                    <h5 class="modal-title alert alert-success text-center">L'artiste à bien été ajouté <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button></h5>
+                </div>
+                <div class="contact modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un Artiste</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="contact modal-body">
+                    <form action="index.php?controller=artist&task=add" id=formartist method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="lastName">Nom</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstName">Prénom</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pseudo">Nom d'artiste</label>
+                            <input type="text" class="form-control" id="pseudo" name="pseudo">
+                        </div>
+                        <div class="form-group">
+                            <label for="picture">Ajouter une image</label>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
+                            <input type="file" class="form-control-file" id="picture" name="picture">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Ajout Son -->
+    <div class="modal fade" id="addsong" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <!-- En cas de succès, le message de remerciment -->
+                <div id="merci" class="display">
+                    <h5 class="modal-title alert alert-success text-center">La chanson à bien été ajoutée <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button></h5>
+                </div>
+                <div class="contact modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un Son</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="contact modal-body">
+                    <form action="index.php?controller=song&task=add" id=formsong method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="songTitle">Titre de la chanson</label>
+                            <input type="text" class="form-control" id="songTitle" name="songTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="artist">Auteur de la chanson</label>
+                            <select class="form-control" id="artist" name="artist">
+                                <?php foreach ($artists as $artist) : ?>
+                                    <option value="<?= $artist['art_id'] ?>"><?= ($artist['art_pseudo'] != '') ? $artist['art_pseudo'] : $artist['art_lastname'] . ' ' . $artist['art_firstname'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="song">Ajouter un son</label>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
+                            <input type="file" class="form-control-file" id="song" name="song">
+                        </div>
+                        <div class="form-group">
+                            <label for="picture">Ajouter une image</label>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
+                            <input type="file" class="form-control-file" id="picture" name="picture">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Ajout Evenement -->
+    <div class="modal fade" id="addevent" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <!-- En cas de succès, le message de remerciment -->
+                <div id="merci" class="display">
+                    <h5 class="modal-title alert alert-success text-center">L'évènement à bien été ajoutée <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button></h5>
+                </div>
+                <div class="contact modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un Evènement</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="contact modal-body">
+                    <form action="index.php?controller=event&task=add" id=formevent method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="eventTitle">Titre de l'évènement</label>
+                            <input type="text" class="form-control" id="eventTitle" name="eventTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="artist">Ajouter des artistes</label>
+                            <select class="form-control" id="artist" name="artist[]" multiple size="5">
+                                <?php foreach ($artists as $artist) : ?>
+                                    <option value="<?= $artist['art_id'] ?>"><?= ($artist['art_pseudo'] != '') ? $artist['art_pseudo'] : $artist['art_lastname'] . ' ' . $artist['art_firstname'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="picture">Ajouter une image</label>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
+                            <input type="file" class="form-control-file" id="picture" name="picture">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../js/modal.js"></script>
+<script src="../js/classes/Form.js"></script>
+<script src="../js/classes/FormArtist.js"></script>
+<script src="../js/classes/FormSong.js"></script>
+<script src="../js/classes/FormEvent.js"></script>
+<script src="../js/classes/Delete.js"></script>
+
+
+</html>

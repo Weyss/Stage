@@ -1,0 +1,29 @@
+<section id="news" class="container-lg">
+    <h2 class="mt-5 mb-4">Les dernières sorties</h2>
+    <div>
+        <?php foreach ($lastSongs as $song) : ?>
+            <div class=info_last_song class="text-center">
+                <img src="<?= PATH_PIC . '/' . PIC_SONG . '/' . $song['son_picture'] ?>" class="card-img-top" alt="<?= $song['son_picture'] ?>">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <!-- Player audio personnalisable CSS -->
+                    <div class="player-audio my-3">
+                        <h2 class="mt-2 text-center"><?= $song['son_title'] ?> - <small> de <?= $song['art_pseudo'] ?></small></h2>
+                        <audio src="<?= PATH_SONG . '/' . $song['son_song'] ?>" class="audio"></audio>
+                        <div class="controls text-center my-2">
+                            <span class="currentTime">00:00</span> / <span class="duration">00:00</span>
+                            <div class="progress my-2">
+                                <div class="timeline"></div>
+                            </div>
+                            <div class="buttons d-flex">
+                                <button class="play-pause bg-light"></button>
+                                <button class="stop bg-light"></button>
+                                <input type="range" class="volumeSlider w-50 ml-2" min="0" max="100" step="1" value="25">
+                            </div>
+                        </div>
+                    </div>
+                    <a href="<?= PATH_SONG . '/' . $song['son_song'] ?>" download><img src="images/download.png" alt="" class=" rounded-circle"></a>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</section>

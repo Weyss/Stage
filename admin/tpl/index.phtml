@@ -1,0 +1,91 @@
+<div class="d-flex justify-content-around">
+    <!-- Derniers artistes ajoutés -->
+    <div class="container-fluid d-flex flex-column w-75">
+        <h2>Les derniers Artistes ajoutés</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="auto">Image</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Nom d'artiste</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($artists as $artist) : ?>
+                    <tr>
+                        <td><img src=<?= FILE_PIC . '/' . PIC_ART . '/' . $artist['art_picture'] ?> alt="" class="card-img" style="width:15rem; height: 15rem;"></td>
+                        <td><?= $artist['art_lastname'] ?></td>
+                        <td><?= $artist['art_firstname'] ?></td>
+                        <td><?= $artist['art_pseudo'] ?></td>
+                        <td>
+                            <a href=<?= ART_DELETE ?> data-toggle="modal" data-target="#delete" data-id="<?= $artist['art_id'] ?>" class="btn btn-primary mr-3">Supprimer</a>
+                            <a href=<?= ART_EDIT_ID . $artist['art_id'] ?> class="btn btn-primary">Editer</a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+    <!-- Derniers events ajoutés -->
+    <div class="container-fluid d-flex flex-column">
+        <h2>Les derniers Evènements ajoutés</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="auto">Image</th>
+                    <th scope="col">Titre de l'évènement</th>
+                    <th scope="col">Description</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($events as $event) : ?>
+                    <tr>
+                        <td><img src=<?= FILE_PIC . '/' . PIC_EVENT . '/' . $event['eve_picture'] ?> alt="" class="card-img" style="width:15rem; height: 15rem;"></td>
+                        <td><?= substr_replace($event['eve_title'], '...', 20) ?></td>
+                        <td><?= substr_replace($event['eve_description'], '...', 50) ?></td>
+                        <td>
+                            <a href=<?= EVE_DELETE ?> data-toggle="modal" data-target="#delete" data-id=<?= $event['eve_id'] ?> class="btn btn-primary mr-3">Supprimer</a>
+                            <a href=<?= EVE_EDIT_ID . $event['eve_id'] ?> class="btn btn-primary">Editer</a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Derniers sons ajoutés -->
+<div class="container-fluid">
+    <div class="d-flex flex-column">
+        <h2>Les derniers Sons ajoutés</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="auto">Image</th>
+                    <th scope="col">Titre de la chanson</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">La Chanson</th>
+                    <th scope="col">Nom d'artiste</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($songs as $song) : ?>
+                    <tr>
+                        <td><img src="<?= FILE_PIC . '/' . PIC_SONG . '/' . $song['son_picture'] ?>" alt="" class="card-img" style="width:15rem; height: 15rem;"></td>
+                        <td><?= $song['son_title'] ?></td>
+                        <td><?= ($song['son_description']) ? substr_replace($song['son_description'], '...', 50) : '' ?></td>
+                        <td><audio controls src="<?= FILE_SONG . '/' . $song['son_song'] ?>"></audio></td>
+                        <td><?= ($song['art_pseudo'] != '') ? $song['art_pseudo'] : $song['art_lastname'] . ' ' . $song['art_firstname'] ?></td>
+                        <td>
+                            <a href=<?= SONG_DELETE ?> data-toggle="modal" data-target="#delete" data-id="<?= $song['son_id'] ?>" class="btn btn-primary mr-3">Supprimer</a>
+                            <a href="<?= SONG_EDIT_ID . $song['son_id'] ?>" class="btn btn-primary">Editer</a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+</div>

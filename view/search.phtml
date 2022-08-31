@@ -1,0 +1,12 @@
+<h2>Artistes</h2>
+<?php foreach ($byPseudo as $pseudo) : ?>
+    <li class=" list-group-item d-flex bg-light">
+        <span><a class="test" href="index.php?controller=result&task=show&result=<?= $pseudo['art_pseudo'] ?>"><?= ($pseudo['art_pseudo'] ? $pseudo['art_pseudo'] :  $pseudo['art_lastname'] . ' ' .  $pseudo['art_firstname']); ?></a></small></span>
+    </li>
+<?php endforeach; ?>
+<h2>Chansons</h2>
+<?php foreach ($bySong as $song) : ?>
+    <li class=" list-group-item d-flex bg-light">
+        <span><a class="test" href="index.php?controller=result&task=show&result=<?= $song['son_title'] ?>"><?= $song['son_title'] ?></a></small></span>
+    </li>
+<?php endforeach; ?>

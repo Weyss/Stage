@@ -1,0 +1,48 @@
+<?php foreach ($errors as $error) : ?>
+    <div class="alert alert-danger w-25 text-center container" role="alert">
+        <?= $error ?>
+    </div>
+<?php endforeach; ?>
+<!-- Formulaire de modification d'un evenement -->
+<form action=<?= EVE_EDIT ?> method="POST" enctype="multipart/form-data" class="container">
+    <input type="hidden" name="id" value="<?= $_SESSION['data']['id'] ?>">
+    <div class="form-group">
+        <label for="eventTitle">Titre de l'évènement</label>
+        <input type="text" class="form-control" id="eventTitle" name="eventTitle" value="<?= $_SESSION['data']['title'] ?>" required>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3"><?= $_SESSION['data']['description'] ?></textarea>
+    </div>
+    <div class="d-flex">
+        <div class="form-group w-50 mr-3">
+            <label for="artist">Artistes Disponible</label>
+            <select class="form-control" id="artist" name="artist[]" multiple size="5">
+                <?php foreach ($_SESSION['data']['artistAvailable'] as $artist) : ?>
+                    <option value="<?= $artist['art_id'] ?>"><?= ($artist['art_pseudo'] != '') ? $artist['art_pseudo'] : $artist['art_lastname'] . ' ' . $artist['art_firstname'] ?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
+        <div class="w-50">
+            <label for="artist">Artistes Participant</label>
+            <ul style="height:119px;" class="overflow-auto">
+                <?php foreach ($_SESSION['data']['artistConfirmed'] as $artistConfirme) : ?>
+                    <li class="my-2"><?= ($artistConfirme['art_pseudo'] != null) ? $artistConfirme['art_pseudo'] : $artistConfirme['art_lastname'] . ' ' . $artistConfirme['art_firstname'] ?>
+                        <button class="btn btn-info btn-sm ml-5"><a href="index.php?controller=event&task=remove" data-toggle="modal" data-target="#delete" data-id=<?= $artistConfirme['art_id'] ?> class="text-reset">Supprimer</a></button></li>
+                <?php endforeach ?>
+            </ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <!-- Donnée sur l'ancienne image -->
+        <input type="hidden" name="lastpicture" value="<?= $_SESSION['data']['picture'] ?>">
+        <small class="form-text text-muted">Image actuelle</small>
+        <img src="<?= FILE . '/' . PIC_EVENT . '/' . $_SESSION['data']['picture'] ?>" alt="" style="width:15rem; height: 15rem;"><br>
+        <label for="picture">Modifier l'image</label>
+        <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
+        <input type="file" class="form-control-file" id="picture" name="picture">
+
+    </div>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>

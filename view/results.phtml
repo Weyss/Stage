@@ -1,0 +1,58 @@
+<section id="results" class="container-lg position-relative">
+    <form class="form-inline d-flex justify-content-center my-5">
+        <input class="form-control mr-sm-2 w-75" type="search" placeholder="Search" aria-label="Search" id="search">
+    </form>
+    <div id="result-search" class="bg-light d-none">
+        <ul class="list-group list-group-flush">
+        </ul>
+    </div>
+    <h2 class="my-3">Résultat pour <?= $mot ?></h2>
+    <ul class="list-group list-group-flush">
+        <?php foreach ($artists as $song) : ?>
+            <li class=" list-group-item d-flex bg-light">
+                <img src=<?= PATH_PIC . '/' . PIC_SONG . '/' . $song['son_picture'] ?> class="card-img-top w-50 picture_song " alt="...">
+                <!-- Player audio personnalisable CSS -->
+                <div class="player-audio info_song ml-3">
+                    <h2><?= $song['son_title'] ?> - <small> de <?= $song['art_pseudo'] ?></small></h2>
+                    <audio src="<?= PATH_SONG . '/' . $song['son_song'] ?>" class="audio"></audio>
+                    <div class="controls my-2">
+                        <span class="currentTime">00:00</span> / <span class="duration">00:00</span>
+                        <div class="progress my-2">
+                            <div class="timeline"></div>
+                        </div>
+                        <div class="buttons my-2 d-flex">
+                            <button class="play-pause bg-light"></button>
+                            <button class="stop bg-light"></button>
+                            <input type="range" class="volumeSlider w-50 ml-2" min="0" max="100" step="1" value="25">
+                        </div>
+                        <a class="d-flex justify-content-center" href="<?= PATH_SONG . '/' . $song['son_song'] ?>" download><img src="images/download.png" alt="" class="rounded-circle"></a>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <ul class="list-group list-group-flush">
+        <?php foreach ($songs as $song) : ?>
+            <li class=" list-group-item d-flex bg-light">
+                <img src=<?= PATH_PIC . '/' . PIC_SONG . '/' . $song['son_picture'] ?> class="card-img-top w-50 picture_song " alt="...">
+                <!-- Player audio personnalisable CSS -->
+                <div class="player-audio info_song">
+                    <h2><?= $song['son_title'] ?> - <small> de <?= $song['art_pseudo'] ?></small></h2>
+                    <audio src="<?= PATH_SONG . '/' . $song['son_song'] ?>" class="audio"></audio>
+                    <div class="controls">
+                        <span class="currentTime">00:00</span> / <span class="duration">00:00</span>
+                        <div class="progress">
+                            <div class="timeline"></div>
+                        </div>
+                        <div class="buttons">
+                            <button class="play-pause"></button>
+                            <button class="stop"></button>
+                            <input type="range" class="volumeSlider" min="0" max="100" step="1" value="25">
+                        </div>
+                        <a href="<?= PATH_SONG . '/' . $song['son_song'] ?>" download><img src="images/download.png" alt="" class="rounded-circle"></a>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</section>

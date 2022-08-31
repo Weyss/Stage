@@ -1,0 +1,25 @@
+<section id="last_events" class="container-lg carousel slide carousel-fade my-3" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#last_events" data-slide-to="0" class="active"></li>
+        <li data-target="#last_events" data-slide-to="1"></li>
+        <li data-target="#last_events" data-slide-to="2"></li>
+        <li data-target="#last_events" data-slide-to="3"></li>
+        <li data-target="#last_events" data-slide-to="4"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src=<?= PATH_PIC . '/' . PIC_EVENT . '/' . $lastEvent['eve_picture'] ?> class="d-block w-100" alt="...">
+            <div class="carousel-caption d-block">
+                <h5><?= $lastEvent['eve_title'] ?></h5>
+            </div>
+        </div>
+        <?php foreach ($lastEvents as $event) : ?>
+            <div class="carousel-item">
+                <img src=<?= PATH_PIC . '/' . PIC_EVENT . '/' . $event['eve_picture'] ?> class="d-block w-100" alt=<?= $event['eve_picture'] ?>>
+                <div class="carousel-caption d-block">
+                    <h5><?= $event['eve_title'] ?></h5>
+                </div>
+            </div>
+        <?php endforeach ?>
+    </div>
+</section>

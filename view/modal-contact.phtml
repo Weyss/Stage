@@ -1,0 +1,44 @@
+<!-- Model Formulaire de contact -->
+<div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!-- En cas de succès, le message de remerciement -->
+            <div id="merci" class="display">
+                <h5 class="modal-title alert alert-success">Votre message à bien été envoyé <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button></h5>
+            </div>
+            <div class="contact modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Contactez-nous</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="contact modal-body">
+                <form action="contact.php" id=formcontact method="POST">
+                    <div class="form-group">
+                        <label for="lastName">Nom</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName">Prénom</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mail">Votre email</label>
+                        <input type="mail" class="form-control" id="mail" name="mail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sujet">Sujet de votre message</label>
+                        <input type="text" class="form-control" id="sujet" name="sujet" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Votre message</label>
+                        <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

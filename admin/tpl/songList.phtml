@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-center">
+    <table class="table w-75 mt-5">
+        <thead>
+            <tr>
+                <th scope="col" class="auto">Image</th>
+                <th scope="col">Titre de la chanson</th>
+                <th scope="col">Description</th>
+                <th scope="col">La Chanson</th>
+                <th scope="col">Nom d'artiste</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($songs as $song) : ?>
+                <tr>
+                    <td><img src="<?= FILE_PIC . '/' . PIC_SONG . '/' . $song['son_picture'] ?>" alt="" class="card-img" style="width:15rem; height: 15rem;"></td>
+                    <td><?= $song['son_title'] ?></td>
+                    <td><?= substr_replace($song['son_description'], '...', 40) ?></td>
+                    <td><audio controls src="upload/song/<?= $song['son_song'] ?>"></audio></td>
+                    <td><?= ($song['art_pseudo'] != '') ? $song['art_pseudo'] : $song['art_lastname'] . ' ' . $song['art_firstname'] ?></td>
+                    <td>
+                        <a href=<?= SONG_DELETE ?> data-toggle="modal" data-target="#delete" data-id="<?= $song['son_id'] ?>" class="btn btn-primary mr-3">Supprimer</a>
+                        <a href=<?= SONG_EDIT_ID . $song['son_id'] ?> class="btn btn-primary">Editer</a>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+</div>

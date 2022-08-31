@@ -1,0 +1,25 @@
+<table class="table container mt-5">
+    <thead>
+        <tr>
+            <th scope="col" class="auto">Image</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Nom d'artiste</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($artists as $artist) : ?>
+            <tr>
+                <td><img src=<?= FILE_PIC . '/' . PIC_ART . '/' . $artist['art_picture'] ?> alt="" class="card-img" style="width:15rem; height: 15rem;"></td>
+                <td><?= $artist['art_lastname'] ?></td>
+                <td><?= $artist['art_firstname'] ?></td>
+                <td><?= $artist['art_pseudo'] ?></td>
+                <td>
+                    <a href=<?= ART_DELETE ?> data-toggle="modal" data-target="#delete" data-id="<?= $artist['art_id'] ?>" class="btn btn-primary mr-3">Supprimer</a>
+                    <a href=<?= ART_EDIT . $artist['art_id'] ?> class="btn btn-primary">Editer</a>
+                </td>
+            </tr>
+        <?php endforeach ?>
+    </tbody>
+</table>

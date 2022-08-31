@@ -1,0 +1,35 @@
+<!-- Formulaire de modification d'une chanson -->
+<?php if ($picture['error'] == true) : ?>
+    <div class="alert alert-danger w-25 text-center container" role="alert">
+        <?= $picture['msgError'] ?>
+    </div>
+<?php endif; ?>
+<form action=<?= SONG_EDIT ?> method="POST" enctype="multipart/form-data" class="container">
+    <input type="hidden" name="id" value="<?= $_SESSION['data']['id'] ?>">
+    <div class="form-group">
+        <label for="songTitle">Titre de la chanson</label>
+        <input type="text" class="form-control" id="songTitle" name="songTitle" value="<?= $_SESSION['data']['title'] ?>" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3"><?= $_SESSION['data']['description'] ?></textarea>
+    </div>
+    <div class="form-group">
+        <label for="artist">Auteur de la chanson</label>
+        <select class="form-control" id="artist" name="artist">
+            <?php foreach ($artists as $artist) : ?>
+                <option value="<?= $artist['art_id'] ?>" <?= ($_SESSION['data']['artist'] == $artist['art_id']) ? 'selected' : '' ?>><?= ($artist['art_pseudo'] != '') ? $artist['art_pseudo'] : $artist['art_lastname'] . ' ' . $artist['art_firstname'] ?></option>
+            <?php endforeach ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <!-- Donnée sur l'ancienne image -->
+        <input type="hidden" name="lastpicture" value="<?= $_SESSION['data']['picture'] ?>">
+        <small class="form-text text-muted">Image actuelle</small>
+        <img src="<?= FILE_PIC . '/'  . PIC_SONG . '/' . $_SESSION['data']['picture'] ?>" alt="" style="width:15rem; height: 15rem;"><br>
+        <label for="picture">Modifier l'image</label>
+        <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
+        <input type="file" class="form-control-file" id="picture" name="picture">
+    </div>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>

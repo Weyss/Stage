@@ -1,0 +1,59 @@
+<section id="all_songs" class="container-lg position-relative">
+    <!-- Barre de recherche -->
+    <form class="form-inline d-flex justify-content-center mt-5 mb-3">
+        <input class="form-control mr-sm-2 w-75" type="search" placeholder="Search" aria-label="Search" id="search">
+    </form>
+    <!--  Resultat de la recherche -->
+    <div id="result-search" class="bg-light d-none">
+        <ul class="list-group list-group-flush">
+        </ul>
+    </div>
+    <!-- Affichage de tous les sons -->
+    <div id="songs">
+        <div id="musiques">
+            <h2 class="mt-5 mb-2">Nos sons</h2>
+            <ul class="list-group list-group-flush">
+                <?php foreach ($allSongs as $song) : ?>
+                    <li class=" list-group-item d-flex bg-light">
+                        <img src=<?= PATH_PIC . '/' . PIC_SONG . '/' . $song['son_picture'] ?> class="card-img-top w-50 picture_song " alt="...">
+                        <!-- Player audio personnalisable CSS -->
+                        <div class="player-audio info_song ml-3">
+                            <h2><?= $song['son_title'] ?> - <small> de <?= $song['art_pseudo'] ?></small></h2>
+                            <audio src="<?= PATH_SONG . '/' . $song['son_song'] ?>" class="audio"></audio>
+                            <div class="controls my-2">
+                                <span class="currentTime">00:00</span> / <span class="duration">00:00</span>
+                                <div class="progress my-2">
+                                    <div class="timeline"></div>
+                                </div>
+                                <div class="buttons my-2 d-flex">
+                                    <button class="play-pause bg-light"></button>
+                                    <button class="stop bg-light"></button>
+                                    <input type="range" class="volumeSlider w-50 ml-2" min="0" max="100" step="1" value="25">
+                                </div>
+                                <a class="d-flex justify-content-center" href="<?= PATH_SONG . '/' . $song['son_song'] ?>" download><img src="images/download.png" alt="" class="rounded-circle"></a>
+                            </div>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <!-- La pagination -->
+        <nav aria-label="Page navigation example" class="my-3 d-flex justify-content-center">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</section>
